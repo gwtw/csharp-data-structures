@@ -58,13 +58,22 @@ namespace GrowingWithTheWeb.DataStructures {
             }
         }
 
+        /// <summary>
+        /// Cut the link between a node and its parent, moving the node to the root list.
+        /// </summary>
+
         private void Cut(Node node, Node parent) {
-            RemoveNodeFromList(node);
             parent.Degree--;
+            parent.Child = (node.Next == node ? null : node.Next);
+            RemoveNodeFromList(node);
             MergeLists(_minNode, node);
             node.IsMarked = false;
         }
 
+        /// <summary>
+        /// Perform a cascading cut on a node; mark the node if it is not marked, otherwise cut the
+        /// node and perform a cascading cut on its parent.
+        /// </summary>
         private void CascadingCut(Node node) {
             Node parent = node.Parent;
             if (parent != null) {
@@ -81,7 +90,6 @@ namespace GrowingWithTheWeb.DataStructures {
             // This is a special implementation of decreaseKey that sets the
             // argument to the minimum value. This is necessary to make generic keys
             // work, since there is no MIN_VALUE constant for generic types.
-            node.IsMinimum = true;
             Node parent = node.Parent;
             if (parent != null) {
                 Cut(node, parent);
@@ -104,7 +112,7 @@ namespace GrowingWithTheWeb.DataStructures {
                     } while (child != extractedMin.Child);
                 }
 
-                Node nextInRootList = _minNode.Next == _minNode ? null : _minNode.Next;
+                Node nextInRootList = extractedMin.Next == extractedMin ? null : extractedMin.Next;
 
                 // Remove min from root list
                 RemoveNodeFromList(extractedMin);
@@ -186,6 +194,9 @@ namespace GrowingWithTheWeb.DataStructures {
             node.Prev = node;
         }
 
+        /// <summary>
+        /// Links two heaps of the same order together.
+        /// </summary>
         private void LinkHeaps(Node max, Node min) {
             RemoveNodeFromList(max);
             min.Child = MergeLists(max, min.Child);
@@ -236,7 +247,6 @@ namespace GrowingWithTheWeb.DataStructures {
             public Node Prev { get; set; }
             public Node Next { get; set; }
             public bool IsMarked { get; set; } 
-            public bool IsMinimum { get; set; }
 
             public Node() {
                 Key = default(T);
