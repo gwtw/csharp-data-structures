@@ -200,5 +200,93 @@ namespace GrowingWithTheWeb.DataStructures {
             heap.Insert(2, 0);
             Assert.Equal(heap.FindMinimum().Key, 1);
         }
+
+        [Fact]
+        public void InsertItemsIntoHeapTest() {
+            var heap = _integerHeapConstructor();
+            heap.Insert(1, 0);
+            heap.Insert(2, 0);
+            heap.Insert(3, 0);
+            heap.Insert(4, 0);
+            heap.Insert(5, 0);
+            Assert.Equal(heap.Size, 5);
+        }
+
+        [Fact]
+        public void InsertReturnsInsertedNodeTest() {
+            var heap = _integerHeapConstructor();
+            var ret = heap.Insert(1, 10);
+            Assert.Equal(ret.Key, 1);
+            Assert.Equal(ret.Value, 10);
+        }
+
+        [Fact]
+        public void InsertDuplicateKeysTest() {
+            var heap = _integerHeapConstructor();
+            heap.Insert(1, 0);
+            heap.Insert(1, 0);
+            Assert.Equal(1, heap.ExtractMinimum().Key);
+            Assert.Equal(1, heap.ExtractMinimum().Key);
+        }
+
+        /*[Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }
+
+        [Fact]
+        public void Test() {
+            var heap = _integerHeapConstructor();
+        }*/
     }
 }
