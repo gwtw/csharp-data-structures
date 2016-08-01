@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Xunit;
 
 namespace GrowingWithTheWeb.DataStructures {
-    public abstract class BaseHeapTest {
+    public abstract class BasePriorityQueueTest {
         protected Func<IPriorityQueue<int, int>> _integerHeapConstructor;
         protected Func<IPriorityQueue<string, int>> _stringHeapConstructor;
 
-        public BaseHeapTest(
+        public BasePriorityQueueTest(
                 Func<IPriorityQueue<int, int>> integerHeapConstructor,
                 Func<IPriorityQueue<string, int>> stringHeapConstructor) {
             _integerHeapConstructor = integerHeapConstructor;
