@@ -17,7 +17,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.ExtractMinimum(), node2);
             Assert.Equal(heap.ExtractMinimum(), node4);
             Assert.Equal(heap.ExtractMinimum(), node5);
-            Assert.True(heap.IsEmpty());
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.Size, 2);
             Assert.Equal(heap.ExtractMinimum(), node2);
             Assert.Equal(heap.ExtractMinimum(), node3);
-            Assert.True(heap.IsEmpty());
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.ExtractMinimum(), node5);
             Assert.Equal(heap.ExtractMinimum(), node6);
             Assert.Equal(heap.ExtractMinimum(), node7);
-            Assert.True(heap.IsEmpty());
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]
@@ -154,7 +154,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.True(heap.ExtractMinimum() == node4);
             Assert.True(heap.ExtractMinimum() == node5);
             Assert.True(heap.ExtractMinimum() == node8);
-            Assert.True(heap.IsEmpty());
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]

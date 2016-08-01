@@ -22,10 +22,6 @@ namespace GrowingWithTheWeb.DataStructures {
             this.Size = size;
         }
 
-        public bool IsEmpty() {
-            return _minNode == null;
-        }
-
         public void Clear() {
             _minNode = null;
             Size = 0;
@@ -131,8 +127,8 @@ namespace GrowingWithTheWeb.DataStructures {
 
         private void Consolidate() {
             IList<Node> aux = new List<Node>();
-            //NodeListIterator it = new NodeListIterator(_minNode);
 
+            // TODO: Pull out into helper function
             var start = _minNode;
             var items = new Queue<Node>();
             if (start == null) {
@@ -144,8 +140,6 @@ namespace GrowingWithTheWeb.DataStructures {
                 items.Enqueue(current2);
                 current2 = current2.Next;
             } while (start != current2);
-            //enumerator = items.GetEnumerator();
-
 
             foreach (var current in items) {
                 //Node current = it.next();
@@ -212,7 +206,6 @@ namespace GrowingWithTheWeb.DataStructures {
 
         // Merges two lists and returns the minimum node
         private Node MergeLists(Node a, Node b) {
-
             if (a == null && b == null) {
                 return null;
             }
@@ -232,12 +225,11 @@ namespace GrowingWithTheWeb.DataStructures {
             return a.CompareTo(b) < 0 ? a : b;
         }
 
-        /*public void print() {
-            System.out.println("Fibonacci heap:");
-            if (minNode != null) {
-                minNode.print(0);
+        public bool IsEmpty {
+            get {
+                return _minNode == null;
             }
-        }*/
+        }
 
         public class Node : IComparable {
             public T Key { get; set; }
@@ -265,115 +257,6 @@ namespace GrowingWithTheWeb.DataStructures {
                 }
                 return this.Key.CompareTo(casted.Key);
             }
-
-            /*private void print(int level) {
-                Node curr = this;
-                do {
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < level; i++) {
-                        sb.append(" ");
-                    }
-                    sb.append(curr.key.toString());
-                    System.out.println(sb.toString());
-                    if (curr._child != null) {
-                        curr._child.print(level + 1);
-                    }
-                    curr = curr.next;
-                } while (curr != this);
-            }*/
         }
-
-        // This Iterator is used to simplify the consolidate() method. It works by
-        // gathering a list of the nodes in the list in the constructor since the
-        // nodes can change during consolidation.
-        /*public class NodeListIterator : IEnumerable<Node> {
-
-            private Queue<Node> items = new LinkedList<Node>();
-
-            public NodeListIterator(Node start) {
-                if (start == null) {
-                    return;
-                }
-
-                Node current = start;
-                do {
-                    items.add(current);
-                    current = current.next;
-                } while (start != current);
-            }
-
-            public IEnumerator<Node> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-
-            public boolean hasNext() {
-                return items.peek() != null;
-            }
-
-            public Node next() {
-                return items.poll();
-            }
-
-            public void remove() {
-                throw new UnsupportedOperationException(
-                        "NodeListIterator.remove is not implemented");
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public class NodeListEnumerator : IEnumerator<Node>
-        {
-            private Queue<Node> items = new Queue<Node>();
-            private IEnumerator<Node> enumerator; 
-
-            public NodeListEnumerator(Node start) {
-                if (start == null) {
-                    return;
-                }
-
-                Node current = start;
-                do {
-                    items.Enqueue(current);
-                    current = current.Next;
-                } while (start != current);
-                enumerator = items.GetEnumerator();
-            }
-
-            public Node Current
-            {
-                get
-                {
-                    return enumerator.Current;
-                }
-            }
-
-            object IEnumerator.Current
-            {
-                get
-                {
-                    return Current;
-                }
-            }
-
-            public void Dispose()
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool MoveNext()
-            {
-                return enumerator.MoveNext();
-            }
-
-            public void Reset()
-            {
-                enumerator.Reset();
-            }
-        }*/
     }
 }

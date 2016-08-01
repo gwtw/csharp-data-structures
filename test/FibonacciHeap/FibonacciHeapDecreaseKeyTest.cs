@@ -73,7 +73,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.True(heap.ExtractMinimum() == node5);
             Assert.True(heap.ExtractMinimum() == node6);
             Assert.True(heap.ExtractMinimum() == node7);
-            Assert.True(heap.IsEmpty());
+            Assert.True(heap.IsEmpty);
         }
     }
 }
