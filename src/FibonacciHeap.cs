@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 
 namespace GrowingWithTheWeb.DataStructures {
+    /// <summary>
+    /// Represents a Fibonacci heap data structure capable of storing generic keys.
+    /// </summary>
     public class FibonacciHeap<T> : IHeap<T>
             where T : IComparable {
 
