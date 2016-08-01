@@ -320,17 +320,43 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(output.Count, 1000);
         }
 
+        [Fact]
+        public void IsEmptyTest() {
+            var heap = _integerHeapConstructor();
+            Assert.True(heap.IsEmpty);
+            heap.Insert(1, 0);
+            Assert.False(heap.IsEmpty);
+            heap.ExtractMinimum();
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void SizeTest() {
+            var heap = _integerHeapConstructor();
+            Assert.Equal(heap.Size, 0);
+            heap.Insert(1, 0);
+            Assert.Equal(heap.Size, 1);
+            heap.Insert(2, 0);
+            Assert.Equal(heap.Size, 2);
+            heap.Insert(3, 0);
+            Assert.Equal(heap.Size, 3);
+            heap.Insert(4, 0);
+            Assert.Equal(heap.Size, 4);
+            heap.Insert(5, 0);
+            Assert.Equal(heap.Size, 5);
+            heap.Insert(6, 0);
+            Assert.Equal(heap.Size, 6);
+            heap.Insert(7, 0);
+            Assert.Equal(heap.Size, 7);
+            heap.Insert(8, 0);
+            Assert.Equal(heap.Size, 8);
+            heap.Insert(9, 0);
+            Assert.Equal(heap.Size, 9);
+            heap.Insert(10, 0);
+            Assert.Equal(heap.Size, 10);
+        }
+
         /*[Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
         public void Test() {
             var heap = _integerHeapConstructor();
         }
