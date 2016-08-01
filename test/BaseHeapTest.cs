@@ -111,5 +111,32 @@ namespace GrowingWithTheWeb.DataStructures {
             heap.DecreaseKey(node5, -11);
             Assert.Equal(heap.FindMinimum().Key, node5.Key);
         }
+
+        [Fact]
+        public void DeleteHeadOfHeapTest() {
+            var heap = _integerHeapConstructor();
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            heap.Delete(node1);
+            Assert.Equal(heap.ExtractMinimum(), node2);
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void DeleteNodesWithMultipleElementsTest() {
+            var heap = _integerHeapConstructor();
+            var node3 = heap.Insert(13, 0);
+            var node4 = heap.Insert(26, 0);
+            var node2 = heap.Insert(3, 0);
+            var node1 = heap.Insert(-6, 0);
+            var node5 = heap.Insert(27, 0);
+            Assert.Equal(heap.Size, 5);
+            Assert.Equal(heap.ExtractMinimum(), node1);
+            Assert.Equal(heap.ExtractMinimum(), node2);
+            Assert.Equal(heap.ExtractMinimum(), node3);
+            Assert.Equal(heap.ExtractMinimum(), node4);
+            Assert.Equal(heap.ExtractMinimum(), node5);
+            Assert.True(heap.IsEmpty);
+        }
     }
 }
