@@ -356,34 +356,104 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.Size, 10);
         }
 
-        /*[Fact]
-        public void Test() {
+        [Fact]
+        public void Union2HeapsTogetherWithOverlappingElementsTest() {
             var heap = _integerHeapConstructor();
+            heap.Insert(0, 0);
+            heap.Insert(2, 0);
+            heap.Insert(4, 0);
+            heap.Insert(6, 0);
+            heap.Insert(8, 0);
+            var other = _integerHeapConstructor();
+            other.Insert(1, 0);
+            other.Insert(3, 0);
+            other.Insert(5, 0);
+            other.Insert(7, 0);
+            other.Insert(9, 0);
+            Assert.Equal(heap.Size, 5);
+            Assert.Equal(other.Size, 5);
+
+            heap.Union((FibonacciHeap<int, int>)other);
+            Assert.Equal(heap.Size, 10);
+            for (var i = 0; i < 10; i++) {
+                Assert.Equal(heap.ExtractMinimum().Key, i);
+            }
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]
-        public void Test() {
+        public void Union2HeapsTogetherWithOverlappingElementsReverseTest() {
             var heap = _integerHeapConstructor();
+            heap.Insert(9, 0);
+            heap.Insert(7, 0);
+            heap.Insert(5, 0);
+            heap.Insert(3, 0);
+            heap.Insert(1, 0);
+            var other = _integerHeapConstructor();
+            other.Insert(8, 0);
+            other.Insert(6, 0);
+            other.Insert(4, 0);
+            other.Insert(2, 0);
+            other.Insert(0, 0);
+            Assert.Equal(heap.Size, 5);
+            Assert.Equal(other.Size, 5);
+
+            heap.Union((FibonacciHeap<int, int>)other);
+            Assert.Equal(heap.Size, 10);
+            for (var i = 0; i < 10; i++) {
+                Assert.Equal(heap.ExtractMinimum().Key, i);
+            }
+            Assert.True(heap.IsEmpty);
         }
 
         [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
+        public void Union2HeapsTest() {
+            var first = _integerHeapConstructor();
+            first.Insert(9, 0);
+            first.Insert(2, 0);
+            first.Insert(6, 0);
+            first.Insert(1, 0);
+            first.Insert(3, 0);
+            Assert.Equal(first.Size, 5);
+            var second = _integerHeapConstructor();
+            second.Insert(4, 0);
+            second.Insert(8, 0);
+            second.Insert(5, 0);
+            second.Insert(7, 0);
+            second.Insert(0, 0);
+            Assert.Equal(second.Size, 5);
+            first.Union((FibonacciHeap<int, int>)second);
+            Assert.Equal(first.Size, 10);
+            for (var i = 0; i < 10; i++) {
+                Assert.Equal(first.ExtractMinimum().Key, i);
+            }
+            Assert.True(first.IsEmpty);
         }
 
         [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
+        public void Union2HeapsAfterExtractingMinFromEachTest() {
+            var first = _integerHeapConstructor();
+            first.Insert(9, 0);
+            first.Insert(2, 0);
+            first.Insert(6, 0);
+            first.Insert(1, 0);
+            first.Insert(3, 0);
+            Assert.Equal(first.Size, 5);
+            var second = _integerHeapConstructor();
+            second.Insert(4, 0);
+            second.Insert(8, 0);
+            second.Insert(5, 0);
+            second.Insert(7, 0);
+            second.Insert(0, 0);
+            Assert.Equal(second.Size, 5);
+            Assert.Equal(first.ExtractMinimum().Key, 1);
+            Assert.Equal(second.ExtractMinimum().Key, 0);
+            first.Union((FibonacciHeap<int, int>)second);
+            Assert.Equal(first.Size, 8);
+            for (var i = 2; i < 10; i++) {
+                Assert.Equal(first.ExtractMinimum().Key, i);
+            }
+            Assert.True(first.IsEmpty);
         }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }*/
     }
 }
