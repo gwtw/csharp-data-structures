@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GrowingWithTheWeb.DataStructures {
@@ -229,27 +230,97 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(1, heap.ExtractMinimum().Key);
         }
 
+        [Fact]
+        public void IntegrationStringKeysTest() {
+            var heap = _stringHeapConstructor();
+            var node3 = heap.Insert("f", 0);
+            var node4 = heap.Insert("o", 0);
+            var node2 = heap.Insert("c", 0);
+            var node1 = heap.Insert("a", 0);
+            var node5 = heap.Insert("q", 0);
+            Assert.Equal(heap.Size, 5);
+            Assert.Equal(heap.ExtractMinimum().Key, node1.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node2.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node3.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node4.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node5.Key);
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void IntegrationGiveEmptyHeapAfterInsertingAndExtracting1000InOrderItemsTest() {
+            var heap = _integerHeapConstructor();
+            for (var i = 0; i < 1000; i++) {
+                heap.Insert(i, i);
+            }
+            for (var i = 0; i < 1000; i++) {
+                heap.ExtractMinimum();
+            }
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void IntegrationGiveEmptyHeapAfterInsertingAndExtracting1000ReverseItemsTest() {
+            var heap = _integerHeapConstructor();
+            for (var i = 999; i >= 0; i--) {
+                heap.Insert(i, i);
+            }
+            for (var i = 0; i < 1000; i++) {
+                heap.ExtractMinimum();
+            }
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void IntegrationGiveEmptyHeapAfterInsertingAndExtracting1000PseudoRandomItemsTest() {
+            var heap = _integerHeapConstructor();
+            for (var i = 0; i < 1000; i++) {
+                if (i % 2 == 0) {
+                    heap.Insert(i, i);
+                } else {
+                    heap.Insert(999 - i, 999 - i);
+                }
+            }
+            for (var i = 0; i < 1000; i++) {
+                heap.ExtractMinimum();
+            }
+            Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void IntegrationHandle1000ShuffledElementsTest() {
+            var heap = _integerHeapConstructor();
+            var input = new List<int>();
+            for (var i = 0; i < 1000; i++) {
+                input.Add(i);
+            }
+            // shuffle
+            var random = new Random();
+            for (var i = 0; i < 1000; i++) {
+                var swapWith = random.Next(1000);
+                var temp = input[i];
+                input[i] = input[swapWith];
+                input[swapWith] = temp;
+            }
+            // insert
+            for (var i = 0; i < 1000; i++) {
+                heap.Insert(input[i], 0);
+            }
+            // extract
+            var output = new List<int>();
+            var errorReported = false;
+            var counter = 0;
+            while (!heap.IsEmpty) {
+                output.Add(heap.ExtractMinimum().Key);
+                if (!errorReported && counter != output[output.Count - 1]) {
+                    Assert.True(false, "the heap property was not maintained (elements in order 0, 1, 2, ..., 997, 998, 999)");
+                }
+                counter++;
+            }
+            Assert.Equal(output.Count, 1000);
+        }
+
         /*[Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
-        public void Test() {
-            var heap = _integerHeapConstructor();
-        }
-
-        [Fact]
         public void Test() {
             var heap = _integerHeapConstructor();
         }
