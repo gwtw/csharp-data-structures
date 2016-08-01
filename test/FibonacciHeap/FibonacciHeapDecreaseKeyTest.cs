@@ -4,16 +4,16 @@ namespace GrowingWithTheWeb.DataStructures {
     public class FibonacciHeapDecreaseKeyTest {
         [Fact]
         public void LeavesValidTreeOnFlatHeapTest() {
-            var heap = new FibonacciHeap<int>();
-            heap.Insert(13);
-            heap.Insert(26);
-            heap.Insert(3);
-            heap.Insert(-6);
-            heap.Insert(27);
-            var node6 = heap.Insert(88);
-            heap.Insert(59);
-            heap.Insert(-10);
-            heap.Insert(16);
+            var heap = new FibonacciHeap<int, int>();
+            heap.Insert(13, 0);
+            heap.Insert(26, 0);
+            heap.Insert(3, 0);
+            heap.Insert(-6, 0);
+            heap.Insert(27, 0);
+            var node6 = heap.Insert(88, 0);
+            heap.Insert(59, 0);
+            heap.Insert(-10, 0);
+            heap.Insert(16, 0);
             heap.DecreaseKey(node6, -8);
             Assert.Equal(heap.ExtractMinimum().Key, -10);
             Assert.Equal(heap.ExtractMinimum().Key, -8);
@@ -28,16 +28,16 @@ namespace GrowingWithTheWeb.DataStructures {
 
         [Fact]
         public void LeavesValidTreeOnConsolidatedHeapTest() {
-            var heap = new FibonacciHeap<int>();
-            var node0 = heap.Insert(0);
-            var node1 = heap.Insert(1);
-            var node2 = heap.Insert(2);
-            var node3 = heap.Insert(3);
-            var node4 = heap.Insert(4);
-            var node5 = heap.Insert(5);
-            var node6 = heap.Insert(6);
-            var node7 = heap.Insert(7);
-            var node8 = heap.Insert(8);
+            var heap = new FibonacciHeap<int, int>();
+            var node0 = heap.Insert(0, 0);
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
+            var node5 = heap.Insert(5, 0);
+            var node6 = heap.Insert(6, 0);
+            var node7 = heap.Insert(7, 0);
+            var node8 = heap.Insert(8, 0);
 
             // Extracting minimum should trigger consolidate.
             //

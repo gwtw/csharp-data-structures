@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace GrowingWithTheWeb.DataStructures {
     /// <summary>
-    /// Represents a Fibonacci heap data structure capable of storing generic keys.
+    /// Represents a Fibonacci heap data structure capable of storing generic key-value pairs.
     /// </summary>
-    public class FibonacciHeap<T> : IHeap<T>
-            where T : IComparable {
+    public class FibonacciHeap<TKey, TValue> : IPriorityQueue<TKey, TValue>
+            where TKey : IComparable {
 
         private Node _minNode;
         public int Size { get; private set; }
@@ -32,9 +32,10 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Inserts a new key-value pair into the heap.
         /// </summary>
         /// <param name="key">The key to insert.</param>
+        /// <param name="val">The value to insert.</param>
         /// <returns>The inserted node.</returns>
-        public Node Insert(T key) {
-            Node node = new Node(key);
+        public Node Insert(TKey key, TValue val) {
+            Node node = new Node(key, val);
             _minNode = MergeLists(_minNode, node);
             Size++;
             return node;
@@ -55,7 +56,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </summary>
         /// </param name="node">The node to decrease the key of.</param>
         /// </param name="newKey">The new key to assign to the node.</param>
-        public void DecreaseKey(Node node, T newKey) {
+        public void DecreaseKey(Node node, TKey newKey) {
             if (newKey.CompareTo(node.Key) > 0) {
                 throw new ArgumentOutOfRangeException("New key is larger than old key.");
             }
@@ -244,7 +245,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Joins another heap to this heap.
         /// </summary>
         /// <param name="other">The other heap.</param>
-        public void Union(FibonacciHeap<T> other) {
+        public void Union(FibonacciHeap<TKey, TValue> other) {
             _minNode = MergeLists(_minNode, other._minNode);
             Size += other.Size;
         }
@@ -289,7 +290,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// A node object used to store data in the Fibonacci heap.
         /// </summary>
         public class Node : IComparable {
-            public T Key { get; set; }
+            public TKey Key { get; set; }
+            public TValue Value { get; set; }
             public int Degree { get; set; }
             public Node Parent { get; set; }
             public Node Child { get; set; }
@@ -300,16 +302,15 @@ namespace GrowingWithTheWeb.DataStructures {
             /// <summary>
             /// Creates a Fibonacci heap node.
             /// </summary>
-            public Node() {
-                Key = default(T);
-            }
+            public Node() { }
 
             /// <summary>
             /// Creates a Fibonacci heap node initialised with a key.
             /// </summary>
             /// <param name="key">The key to use.</param>
-            public Node(T key) {
+            public Node(TKey key, TValue value) {
                 Key = key;
+                Value = value;
                 Next = this;
                 Prev = this;
             }

@@ -4,10 +4,10 @@ namespace GrowingWithTheWeb.DataStructures {
     public class FibonacciHeapExtractMinimumTest {
         [Fact]
         public void Consolidate8NodesIntoWellFormedOrder1TreeTest() {
-            var heap = new FibonacciHeap<int>();
-            var node0 = heap.Insert(0);
-            var node1 = heap.Insert(1);
-            var node2 = heap.Insert(2);
+            var heap = new FibonacciHeap<int, int>();
+            var node0 = heap.Insert(0, 0);
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
 
             // Extracting minimum should trigger consolidate.
             //
@@ -27,12 +27,12 @@ namespace GrowingWithTheWeb.DataStructures {
 
         [Fact]
         public void Consolidate8NodesIntoWellFormedOrder2TreeTest() {
-            var heap = new FibonacciHeap<int>();
-            var node0 = heap.Insert(0);
-            var node1 = heap.Insert(1);
-            var node2 = heap.Insert(2);
-            var node3 = heap.Insert(3);
-            var node4 = heap.Insert(4);
+            var heap = new FibonacciHeap<int, int>();
+            var node0 = heap.Insert(0, 0);
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
 
             // Extracting minimum should trigger consolidate.
             //
@@ -60,16 +60,16 @@ namespace GrowingWithTheWeb.DataStructures {
 
         [Fact]
         public void Consolidate8NodesIntoWellFormedOrder3TreeTest() {
-            var heap = new FibonacciHeap<int>();
-            var node0 = heap.Insert(0);
-            var node1 = heap.Insert(1);
-            var node2 = heap.Insert(2);
-            var node3 = heap.Insert(3);
-            var node4 = heap.Insert(4);
-            var node5 = heap.Insert(5);
-            var node6 = heap.Insert(6);
-            var node7 = heap.Insert(7);
-            var node8 = heap.Insert(8);
+            var heap = new FibonacciHeap<int, int>();
+            var node0 = heap.Insert(0, 0);
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
+            var node5 = heap.Insert(5, 0);
+            var node6 = heap.Insert(6, 0);
+            var node7 = heap.Insert(7, 0);
+            var node8 = heap.Insert(8, 0);
 
             // Extracting minimum should trigger consolidate.
             //
