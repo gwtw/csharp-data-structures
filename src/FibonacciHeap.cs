@@ -164,20 +164,12 @@ namespace GrowingWithTheWeb.DataStructures {
         /// order.
         /// </summary>
         private void Consolidate() {
-            IList<Node> aux = new List<Node>();
-
-            // TODO: Pull out into helper function
-            var start = _minNode;
-            var items = new Queue<Node>();
-            if (start == null) {
+            if (_minNode == null) {
                 return;
             }
-
-            Node current2 = start;
-            do {
-                items.Enqueue(current2);
-                current2 = current2.Next;
-            } while (start != current2);
+            
+            IList<Node> aux = new List<Node>();
+            var items = GetRootTrees();
 
             foreach (var current in items) {
                 //Node current = it.next();
@@ -216,6 +208,19 @@ namespace GrowingWithTheWeb.DataStructures {
             }
         }
 
+        /// <summary>
+        /// Gets all root-level trees of the heap. 
+        /// </summary>
+        private IEnumerable<Node> GetRootTrees()
+        {
+            var items = new Queue<Node>();
+            Node current = _minNode;
+            do {
+                items.Enqueue(current);
+                current = current.Next;
+            } while (_minNode != current);
+            return items;
+        }
 
         /// <summary>
         /// Removes a node from a node list.
