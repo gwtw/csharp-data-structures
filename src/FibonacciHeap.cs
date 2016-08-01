@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 
 namespace GrowingWithTheWeb.DataStructures {
-    public class FibonacciHeap<T> where T : IComparable {
+    public class FibonacciHeap<T> : IHeap<T>
+            where T : IComparable {
 
         private Node _minNode;
         public int Size { get; private set; }
