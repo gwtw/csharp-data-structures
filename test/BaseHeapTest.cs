@@ -138,5 +138,56 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.ExtractMinimum(), node5);
             Assert.True(heap.IsEmpty);
         }
+
+        [Fact]
+        public void ExtractMinimumReturnNullOnEmptyHeapTest() {
+            var heap = _integerHeapConstructor();
+            Assert.Equal(heap.ExtractMinimum(), null);
+        }
+
+        [Fact]
+        public void ExtractMinimumExtractsMinimumTest() {
+            var heap = _integerHeapConstructor();
+            var node5 = heap.Insert(5, 0);
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            Assert.Equal(heap.ExtractMinimum().Key, node1.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node2.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node3.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node4.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node5.Key);
+        }
+
+        [Fact]
+        public void ExtractMinimumExtractsMinimumFromJumbledHeapTest() {
+            var heap = _integerHeapConstructor();
+            var node1 = heap.Insert(1, 0);
+            var node4 = heap.Insert(4, 0);
+            var node3 = heap.Insert(3, 0);
+            var node5 = heap.Insert(5, 0);
+            var node2 = heap.Insert(2, 0);
+            Assert.Equal(heap.ExtractMinimum().Key, node1.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node2.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node3.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node4.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node5.Key);
+        }
+
+        [Fact]
+        public void ExtractMinimumExtractsMinimumFromHeapWithNegativeKeysTest() {
+            var heap = _integerHeapConstructor();
+            var node1 = heap.Insert(-9, 0);
+            var node4 = heap.Insert(6, 0);
+            var node3 = heap.Insert(3, 0);
+            var node5 = heap.Insert(10, 0);
+            var node2 = heap.Insert(-4, 0);
+            Assert.Equal(heap.ExtractMinimum().Key, node1.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node2.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node3.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node4.Key);
+            Assert.Equal(heap.ExtractMinimum().Key, node5.Key);
+        }
     }
 }
