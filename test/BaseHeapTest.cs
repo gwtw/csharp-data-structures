@@ -189,5 +189,16 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.ExtractMinimum().Key, node4.Key);
             Assert.Equal(heap.ExtractMinimum().Key, node5.Key);
         }
+
+        [Fact]
+        public void ExtractMinimumReturnsMinimumTest() {
+            var heap = _integerHeapConstructor();
+            heap.Insert(5, 0);
+            heap.Insert(3, 0);
+            heap.Insert(1, 0);
+            heap.Insert(4, 0);
+            heap.Insert(2, 0);
+            Assert.Equal(heap.FindMinimum().Key, 1);
+        }
     }
 }
