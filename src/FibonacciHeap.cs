@@ -57,6 +57,9 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </param name="node">The node to decrease the key of.</param>
         /// </param name="newKey">The new key to assign to the node.</param>
         public void DecreaseKey(Node node, TKey newKey) {
+            if (node == null) {
+                throw new ArgumentException("node must be non-null.");
+            }
             if (newKey.CompareTo(node.Key) > 0) {
                 throw new ArgumentOutOfRangeException("New key is larger than old key.");
             }
