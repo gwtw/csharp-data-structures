@@ -1,4 +1,3 @@
-
 using System;
 
 namespace GrowingWithTheWeb.DataStructures {
@@ -6,13 +5,13 @@ namespace GrowingWithTheWeb.DataStructures {
         int Size { get; }
         bool IsEmpty { get; }
         
-        // TODO: Factor out Node into generic interface
         void Clear();
-        void DecreaseKey(FibonacciHeap<TKey, TValue>.Node node, TKey newKey);
-        void Delete(FibonacciHeap<TKey, TValue>.Node node);
-        FibonacciHeap<TKey, TValue>.Node ExtractMinimum();
-        FibonacciHeap<TKey, TValue>.Node FindMinimum();
-        FibonacciHeap<TKey, TValue>.Node Insert(TKey key, TValue value);
+        void DecreaseKey(INode<TKey, TValue> node, TKey newKey);
+        void Delete(INode<TKey, TValue> node);
+        INode<TKey, TValue> ExtractMinimum();
+        INode<TKey, TValue> FindMinimum();
+        INode<TKey, TValue> Insert(TKey key, TValue value);
+        // TODO: Use generic IPriorityQueue here
         void Union(FibonacciHeap<TKey, TValue> other);
     }
 }

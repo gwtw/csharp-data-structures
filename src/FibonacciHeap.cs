@@ -34,7 +34,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <param name="key">The key to insert.</param>
         /// <param name="val">The value to insert.</param>
         /// <returns>The inserted node.</returns>
-        public Node Insert(TKey key, TValue val) {
+        public INode<TKey, TValue> Insert(TKey key, TValue val) {
             Node node = new Node(key, val);
             _minNode = MergeLists(_minNode, node);
             Size++;
@@ -46,10 +46,22 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Returns the minimum node from the heap.
         /// </summary>
         /// <returns>The heap's minimum node or undefined if the heap is empty.</returns>
-        public Node FindMinimum() {
+        public INode<TKey, TValue> FindMinimum() {
             return _minNode;
         }
 
+        /// <summary>
+        /// Decreases a key of a node.
+        /// </summary>
+        /// </param name="node">The node to decrease the key of.</param>
+        /// </param name="newKey">The new key to assign to the node.</param>
+        public void DecreaseKey(INode<TKey, TValue> node, TKey newKey) {
+            var casted = node as Node;
+            if (casted == null) {
+                throw new ArgumentException("node must be a FibonacciHeap.Node");
+            }
+            DecreaseKey(casted, newKey);
+        }
 
         /// <summary>
         /// Decreases a key of a node.
@@ -105,6 +117,17 @@ namespace GrowingWithTheWeb.DataStructures {
             }
         }
 
+        /// <summary>
+        /// Deletes a node.
+        /// </summary>
+        /// <param name="node">The node to delete.</param>
+        public void Delete(INode<TKey, TValue> node) {
+            var casted = node as Node;
+            if (casted == null) {
+                throw new ArgumentException("node must be a FibonacciHeap.Node");
+            }
+            Delete(casted);
+        }
 
         /// <summary>
         /// Deletes a node.
@@ -129,7 +152,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Extracts and returns the minimum node from the heap.
         /// </summary>
         /// <returns>The heap's minimum node or undefined if the heap is empty.</returns>
-        public Node ExtractMinimum() {
+        public INode<TKey, TValue> ExtractMinimum() {
             Node extractedMin = _minNode;
             if (extractedMin != null) {
                 // Set parent to null for the minimum's children
@@ -297,7 +320,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <summary>
         /// A node object used to store data in the Fibonacci heap.
         /// </summary>
-        public class Node : IComparable {
+        public class Node : INode<TKey, TValue> {
             public TKey Key { get; set; }
             public TValue Value { get; set; }
             public int Degree { get; set; }

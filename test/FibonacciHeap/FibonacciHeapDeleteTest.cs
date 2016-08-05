@@ -97,15 +97,15 @@ namespace GrowingWithTheWeb.DataStructures {
         [Fact]
         public void CutNodeFromTreeIfNotMinimumAndHasGrandparentWithMarkedParentTest() {
             var heap = new FibonacciHeap<int, int>();
-            var node0 = heap.Insert(0, 0);
-            var node1 = heap.Insert(1, 0);
-            var node2 = heap.Insert(2, 0);
-            var node3 = heap.Insert(3, 0);
-            var node4 = heap.Insert(4, 0);
-            var node5 = heap.Insert(5, 0);
-            var node6 = heap.Insert(6, 0);
-            var node7 = heap.Insert(7, 0);
-            var node8 = heap.Insert(8, 0);
+            var node0 = (FibonacciHeap<int, int>.Node)heap.Insert(0, 0);
+            var node1 = (FibonacciHeap<int, int>.Node)heap.Insert(1, 0);
+            var node2 = (FibonacciHeap<int, int>.Node)heap.Insert(2, 0);
+            var node3 = (FibonacciHeap<int, int>.Node)heap.Insert(3, 0);
+            var node4 = (FibonacciHeap<int, int>.Node)heap.Insert(4, 0);
+            var node5 = (FibonacciHeap<int, int>.Node)heap.Insert(5, 0);
+            var node6 = (FibonacciHeap<int, int>.Node)heap.Insert(6, 0);
+            var node7 = (FibonacciHeap<int, int>.Node)heap.Insert(7, 0);
+            var node8 = (FibonacciHeap<int, int>.Node)heap.Insert(8, 0);
 
             // Extracting minimum should trigger consolidate.
             //
@@ -160,14 +160,14 @@ namespace GrowingWithTheWeb.DataStructures {
         [Fact]
         public void CorrectlyAssignIndirectChildWhenDirectChildIsCutFromParentTest() {
             var heap = new FibonacciHeap<int, int>();
-            var node0 = heap.Insert(0, 0);
+            var node0 = (FibonacciHeap<int, int>.Node)heap.Insert(0, 0);
             heap.Insert(1, 0);
             heap.Insert(2, 0);
             heap.Insert(3, 0);
             heap.Insert(4, 0);
-            var node5 = heap.Insert(5, 0);
-            var node6 = heap.Insert(6, 0);
-            var node7 = heap.Insert(7, 0);
+            var node5 = (FibonacciHeap<int, int>.Node)heap.Insert(5, 0);
+            var node6 = (FibonacciHeap<int, int>.Node)heap.Insert(6, 0);
+            var node7 = (FibonacciHeap<int, int>.Node)heap.Insert(7, 0);
             heap.Insert(8, 0);
 
             // Extracting minimum should trigger consolidate.
