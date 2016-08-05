@@ -11,7 +11,6 @@ namespace GrowingWithTheWeb.DataStructures {
         INode<TKey, TValue> ExtractMinimum();
         INode<TKey, TValue> FindMinimum();
         INode<TKey, TValue> Insert(TKey key, TValue value);
-        // TODO: Use generic IPriorityQueue here
-        void Union(FibonacciHeap<TKey, TValue> other);
+        void Union(IPriorityQueue<TKey, TValue> other);
     }
 }

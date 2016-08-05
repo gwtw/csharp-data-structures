@@ -271,6 +271,17 @@ namespace GrowingWithTheWeb.DataStructures {
             max.IsMarked = false;
         }
 
+        /// <summary>
+        /// Joins another heap to this heap.
+        /// </summary>
+        /// <param name="other">The other heap.</param>
+        public void Union(IPriorityQueue<TKey, TValue> other) {
+            var casted = other as FibonacciHeap<TKey, TValue>;
+            if (casted == null) {
+                throw new ArgumentException("other must be a FibonacciHeap");
+            }
+            Union(casted);
+        }
 
         /// <summary>
         /// Joins another heap to this heap.
