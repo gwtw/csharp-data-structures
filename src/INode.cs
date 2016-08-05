@@ -1,8 +1,10 @@
 using System;
 
-namespace GrowingWithTheWeb.DataStructures {
+namespace GrowingWithTheWeb.DataStructures 
+{
     public interface INode<TKey, TValue> : IComparable 
-            where TKey : IComparable {
+            where TKey : IComparable 
+    {
         TKey Key { get; }
         TValue Value { get; }
     }

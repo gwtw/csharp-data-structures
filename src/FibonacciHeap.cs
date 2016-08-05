@@ -6,7 +6,8 @@ namespace GrowingWithTheWeb.DataStructures {
     /// Represents a Fibonacci heap data structure capable of storing generic key-value pairs.
     /// </summary>
     public class FibonacciHeap<TKey, TValue> : IPriorityQueue<TKey, TValue>
-            where TKey : IComparable {
+            where TKey : IComparable 
+    {
 
         private Node _minNode;
         public int Size { get; private set; }
@@ -14,7 +15,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <summary>
         /// Creates a Fibonacci heap.
         /// </summary>
-        public FibonacciHeap() {
+        public FibonacciHeap() 
+        {
             _minNode = null;
             Size = 0;
         }
@@ -22,7 +24,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <summary>
         /// Clears the heap's data, making it an empty heap.
         /// </summary>
-        public void Clear() {
+        public void Clear() 
+        {
             _minNode = null;
             Size = 0;
         }
@@ -34,7 +37,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <param name="key">The key to insert.</param>
         /// <param name="val">The value to insert.</param>
         /// <returns>The inserted node.</returns>
-        public INode<TKey, TValue> Insert(TKey key, TValue val) {
+        public INode<TKey, TValue> Insert(TKey key, TValue val) 
+        {
             Node node = new Node(key, val);
             _minNode = MergeLists(_minNode, node);
             Size++;
@@ -46,7 +50,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Returns the minimum node from the heap.
         /// </summary>
         /// <returns>The heap's minimum node or undefined if the heap is empty.</returns>
-        public INode<TKey, TValue> FindMinimum() {
+        public INode<TKey, TValue> FindMinimum() 
+        {
             return _minNode;
         }
 
@@ -55,11 +60,11 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </summary>
         /// </param name="node">The node to decrease the key of.</param>
         /// </param name="newKey">The new key to assign to the node.</param>
-        public void DecreaseKey(INode<TKey, TValue> node, TKey newKey) {
+        public void DecreaseKey(INode<TKey, TValue> node, TKey newKey) 
+        {
             var casted = node as Node;
-            if (casted == null) {
+            if (casted == null)
                 throw new ArgumentException("node must be a FibonacciHeap.Node");
-            }
             DecreaseKey(casted, newKey);
         }
 
@@ -68,21 +73,22 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </summary>
         /// </param name="node">The node to decrease the key of.</param>
         /// </param name="newKey">The new key to assign to the node.</param>
-        public void DecreaseKey(Node node, TKey newKey) {
-            if (node == null) {
+        public void DecreaseKey(Node node, TKey newKey) 
+        {
+            if (node == null)
                 throw new ArgumentException("node must be non-null.");
-            }
-            if (newKey.CompareTo(node.Key) > 0) {
+            if (newKey.CompareTo(node.Key) > 0)
                 throw new ArgumentOutOfRangeException("New key is larger than old key.");
-            }
-
+            
             node.Key = newKey;
             Node parent = node.Parent;
-            if (parent != null && node.CompareTo(parent) < 0) {
+            if (parent != null && node.CompareTo(parent) < 0) 
+            {
                 Cut(node, parent);
                 CascadingCut(parent);
             }
-            if (node.CompareTo(_minNode) < 0) {
+            if (node.CompareTo(_minNode) < 0) 
+            {
                 _minNode = node;
             }
         }
@@ -92,7 +98,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </summary>
         /// <param name="node">The node being cut.</param>
         /// <param name="parent">The parent of the node being cut.</param>
-        private void Cut(Node node, Node parent) {
+        private void Cut(Node node, Node parent) 
+        {
             parent.Degree--;
             parent.Child = (node.Next == node ? null : node.Next);
             RemoveNodeFromList(node);
@@ -105,13 +112,18 @@ namespace GrowingWithTheWeb.DataStructures {
         /// node and perform a cascading cut on its parent.
         /// </summary>
         /// <param name="node">The node being considered to be cut.</param>
-        private void CascadingCut(Node node) {
+        private void CascadingCut(Node node) 
+        {
             Node parent = node.Parent;
-            if (parent != null) {
-                if (node.IsMarked) {
+            if (parent != null) 
+            {
+                if (node.IsMarked) 
+                {
                     Cut(node, parent);
                     CascadingCut(parent);
-                } else {
+                } 
+                else 
+                {
                     node.IsMarked = true;
                 }
             }
@@ -121,11 +133,11 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Deletes a node.
         /// </summary>
         /// <param name="node">The node to delete.</param>
-        public void Delete(INode<TKey, TValue> node) {
+        public void Delete(INode<TKey, TValue> node) 
+        {
             var casted = node as Node;
-            if (casted == null) {
+            if (casted == null)
                 throw new ArgumentException("node must be a FibonacciHeap.Node");
-            }
             Delete(casted);
         }
 
@@ -133,12 +145,14 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Deletes a node.
         /// </summary>
         /// <param name="node">The node to delete.</param>
-        public void Delete(Node node) {
+        public void Delete(Node node) 
+        {
             // This is a special implementation of decreaseKey that sets the
             // argument to the minimum value. This is necessary to make generic keys
             // work, since there is no MIN_VALUE constant for generic types.
             Node parent = node.Parent;
-            if (parent != null) {
+            if (parent != null) 
+            {
                 Cut(node, parent);
                 CascadingCut(parent);
             }
@@ -147,18 +161,21 @@ namespace GrowingWithTheWeb.DataStructures {
             ExtractMinimum();
         }
 
-
         /// <summary>
         /// Extracts and returns the minimum node from the heap.
         /// </summary>
         /// <returns>The heap's minimum node or undefined if the heap is empty.</returns>
-        public INode<TKey, TValue> ExtractMinimum() {
+        public INode<TKey, TValue> ExtractMinimum() 
+        {
             Node extractedMin = _minNode;
-            if (extractedMin != null) {
+            if (extractedMin != null) 
+            {
                 // Set parent to null for the minimum's children
-                if (extractedMin.Child != null) {
+                if (extractedMin.Child != null) 
+                {
                     Node child = extractedMin.Child;
-                    do {
+                    do 
+                    {
                         child.Parent = null;
                         child = child.Next;
                     } while (child != extractedMin.Child);
@@ -173,7 +190,8 @@ namespace GrowingWithTheWeb.DataStructures {
                 // Merge the children of the minimum node with the root list
                 _minNode = MergeLists(nextInRootList, extractedMin.Child);
 
-                if (nextInRootList != null) {
+                if (nextInRootList != null) 
+                {
                     _minNode = nextInRootList;
                     Consolidate();
                 }
@@ -186,25 +204,29 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Merge all trees of the same order together until there are no two trees of the same
         /// order.
         /// </summary>
-        private void Consolidate() {
-            if (_minNode == null) {
+        private void Consolidate() 
+        {
+            if (_minNode == null)
                 return;
-            }
             
             IList<Node> aux = new List<Node>();
             var items = GetRootTrees();
 
-            foreach (var current in items) {
+            foreach (var current in items) 
+            {
                 //Node current = it.next();
                 var top = current;
 
-                while (aux.Count <= top.Degree + 1) {
+                while (aux.Count <= top.Degree + 1) 
+                {
                     aux.Add(null);
                 }
 
                 // If there exists another node with the same degree, merge them
-                while (aux[top.Degree] != null) {
-                    if (top.Key.CompareTo(aux[top.Degree].Key) > 0) {
+                while (aux[top.Degree] != null)
+                {
+                    if (top.Key.CompareTo(aux[top.Degree].Key) > 0) 
+                    {
                         Node temp = top;
                         top = aux[top.Degree];
                         aux[top.Degree] = temp;
@@ -214,15 +236,18 @@ namespace GrowingWithTheWeb.DataStructures {
                     top.Degree++;
                 }
 
-                while (aux.Count <= top.Degree + 1) {
+                while (aux.Count <= top.Degree + 1) 
+                {
                     aux.Add(null);
                 }
                 aux[top.Degree] = top;
             }
 
             _minNode = null;
-            for (int i = 0; i < aux.Count; i++) {
-                if (aux[i] != null) {
+            for (int i = 0; i < aux.Count; i++) 
+            {
+                if (aux[i] != null) 
+                {
                     // Remove siblings before merging
                     aux[i].Next = aux[i];
                     aux[i].Prev = aux[i];
@@ -238,7 +263,8 @@ namespace GrowingWithTheWeb.DataStructures {
         {
             var items = new Queue<Node>();
             Node current = _minNode;
-            do {
+            do 
+            {
                 items.Enqueue(current);
                 current = current.Next;
             } while (_minNode != current);
@@ -249,7 +275,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Removes a node from a node list.
         /// </summary>
         /// <param name="node">The node to remove.</param>
-        private void RemoveNodeFromList(Node node) {
+        private void RemoveNodeFromList(Node node) 
+        {
             Node prev = node.Prev;
             Node next = node.Next;
             prev.Next = next;
@@ -264,7 +291,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// </summary>
         /// <param name="max">The heap with the larger root.</param>
         /// <param name="min">The heap with the smaller root.</param>
-        private void LinkHeaps(Node max, Node min) {
+        private void LinkHeaps(Node max, Node min) 
+        {
             RemoveNodeFromList(max);
             min.Child = MergeLists(max, min.Child);
             max.Parent = min;
@@ -275,11 +303,11 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Joins another heap to this heap.
         /// </summary>
         /// <param name="other">The other heap.</param>
-        public void Union(IPriorityQueue<TKey, TValue> other) {
+        public void Union(IPriorityQueue<TKey, TValue> other) 
+        {
             var casted = other as FibonacciHeap<TKey, TValue>;
-            if (casted == null) {
+            if (casted == null)
                 throw new ArgumentException("other must be a FibonacciHeap");
-            }
             Union(casted);
         }
 
@@ -287,7 +315,8 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Joins another heap to this heap.
         /// </summary>
         /// <param name="other">The other heap.</param>
-        public void Union(FibonacciHeap<TKey, TValue> other) {
+        public void Union(FibonacciHeap<TKey, TValue> other) 
+        {
             _minNode = MergeLists(_minNode, other._minNode);
             Size += other.Size;
         }
@@ -299,16 +328,14 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <param name="a">The first list to merge.</param>
         /// <param name="b">The second list to merge.</param>
         /// <returns>The new minimum node from the two lists.</returns>
-        private Node MergeLists(Node a, Node b) {
-            if (a == null && b == null) {
+        private Node MergeLists(Node a, Node b)
+        {
+            if (a == null && b == null)
                 return null;
-            }
-            if (a == null) {
+            if (a == null)
                 return b;
-            }
-            if (b == null) {
+            if (b == null)
                 return a;
-            }
 
             Node temp = a.Next;
             a.Next = b.Next;
@@ -323,15 +350,14 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Gets whether the heap is empty.
         /// </summary>
         public bool IsEmpty {
-            get {
-                return _minNode == null;
-            }
+            get { return _minNode == null; }
         }
 
         /// <summary>
         /// A node object used to store data in the Fibonacci heap.
         /// </summary>
-        public class Node : INode<TKey, TValue> {
+        public class Node : INode<TKey, TValue> 
+        {
             public TKey Key { get; set; }
             public TValue Value { get; set; }
             public int Degree { get; set; }
@@ -344,24 +370,27 @@ namespace GrowingWithTheWeb.DataStructures {
             /// <summary>
             /// Creates a Fibonacci heap node.
             /// </summary>
-            public Node() { }
+            public Node()
+            { 
+            }
 
             /// <summary>
             /// Creates a Fibonacci heap node initialised with a key.
             /// </summary>
             /// <param name="key">The key to use.</param>
-            public Node(TKey key, TValue value) {
+            public Node(TKey key, TValue value) 
+            {
                 Key = key;
                 Value = value;
                 Next = this;
                 Prev = this;
             }
 
-            public int CompareTo(object other) {
+            public int CompareTo(object other) 
+            {
                 var casted = other as Node;
-                if (casted == null) {
+                if (casted == null)
                     throw new NotImplementedException("Cannot compare to a non-Node object");
-                }
                 return this.Key.CompareTo(casted.Key);
             }
         }

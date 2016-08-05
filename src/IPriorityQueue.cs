@@ -1,7 +1,9 @@
 using System;
 
-namespace GrowingWithTheWeb.DataStructures {
-    public interface IPriorityQueue<TKey, TValue> where TKey : IComparable {
+namespace GrowingWithTheWeb.DataStructures 
+{
+    public interface IPriorityQueue<TKey, TValue> where TKey : IComparable 
+    {
         int Size { get; }
         bool IsEmpty { get; }
         
