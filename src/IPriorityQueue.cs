@@ -12,7 +12,7 @@ namespace GrowingWithTheWeb.DataStructures
         void Delete(INode<TKey, TValue> node);
         INode<TKey, TValue> ExtractMinimum();
         INode<TKey, TValue> FindMinimum();
-        INode<TKey, TValue> Insert(TKey key, TValue value);
+        INode<TKey, TValue> Insert(TKey key, TValue val);
         void Union(IPriorityQueue<TKey, TValue> other);
     }
 }

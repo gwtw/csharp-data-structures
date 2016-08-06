@@ -6,7 +6,7 @@ namespace GrowingWithTheWeb.DataStructures {
     /// Represents a Fibonacci heap data structure capable of storing generic key-value pairs.
     /// </summary>
     public class FibonacciHeap<TKey, TValue> : IPriorityQueue<TKey, TValue>
-            where TKey : IComparable 
+        where TKey : IComparable 
     {
 
         private Node _minNode;
