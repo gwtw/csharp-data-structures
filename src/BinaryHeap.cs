@@ -133,12 +133,7 @@ namespace GrowingWithTheWeb.DataStructures {
             return 2 * i + 2;
         }
 
-        public void DecreaseKey(INode<TKey, TValue> node, TKey newKey)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(INode<TKey, TValue> node)
+        private int FindIndexOfNode(INode<TKey, TValue> node)
         {
             // Searching for the index of node is an O(n) operation
             var castedNode = (Node)node;
@@ -147,10 +142,28 @@ namespace GrowingWithTheWeb.DataStructures {
             {
                 throw new ArgumentException("The node is not within the list");
             }
-            DeleteAt(index);
+            return index;
         }
 
-        public void DeleteAt(int index)
+        public void DecreaseKey(INode<TKey, TValue> node, TKey newKey)
+        {
+            DecreaseKeyAt(FindIndexOfNode(node), newKey);
+        }
+
+        private void DecreaseKeyAt(int index, TKey newKey)
+        {
+            if (list[index].Key.CompareTo(newKey) < 0)
+                throw new ArgumentOutOfRangeException("New key is larger than old key.");
+            list[index].Key = newKey;
+            FilterUp(index);
+        }
+
+        public void Delete(INode<TKey, TValue> node)
+        {
+            DeleteAt(FindIndexOfNode(node));
+        }
+
+        private void DeleteAt(int index)
         {
             if (list.Count == 1)
             {
