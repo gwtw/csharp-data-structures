@@ -10,6 +10,10 @@ namespace GrowingWithTheWeb.DataStructures {
     {
 
         private Node _minNode;
+
+        /// <summary>
+        /// The size of the heap.
+        /// </summary>
         public int Size { get; private set; }
 
         /// <summary>
@@ -44,7 +48,6 @@ namespace GrowingWithTheWeb.DataStructures {
             Size++;
             return node;
         }
-
 
         /// <summary>
         /// Returns the minimum node from the heap.
@@ -375,13 +378,14 @@ namespace GrowingWithTheWeb.DataStructures {
             }
 
             /// <summary>
-            /// Creates a Fibonacci heap node initialised with a key.
+            /// Creates a Fibonacci heap node initialised with a key and value.
             /// </summary>
             /// <param name="key">The key to use.</param>
-            public Node(TKey key, TValue value) 
+            /// <param name="val">The value to use.</param>
+            public Node(TKey key, TValue val) 
             {
                 Key = key;
-                Value = value;
+                Value = val;
                 Next = this;
                 Prev = this;
             }
