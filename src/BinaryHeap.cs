@@ -44,18 +44,22 @@ namespace GrowingWithTheWeb.DataStructures {
 
         public INode<TKey, TValue> Insert(TKey key, TValue val) 
         {
+            return Insert(new Node(key, val));
+        }
+
+        public INode<TKey, TValue> Insert(Node node)
+        {
             int i = list.Count;
-            var node = new Node(key, val); 
             list.Add(node);
             int parent = GetParentIndex(i);
-            while (parent != -1 && list[i].CompareTo(list[parent]) < 0) 
+            while (parent != _invalidIndex && list[i].CompareTo(list[parent]) < 0) 
             {
                 Swap(i, parent);
                 i = parent;
                 parent = GetParentIndex(i);
             }
             return node;
-        }
+        } 
 
         public INode<TKey, TValue> ExtractMinimum() 
         {
@@ -218,7 +222,10 @@ namespace GrowingWithTheWeb.DataStructures {
 
         public void Union(IPriorityQueue<TKey, TValue> other)
         {
-            throw new NotImplementedException();
+            while (!other.IsEmpty)
+            {
+                Insert((Node)other.ExtractMinimum());
+            }
         }
 
         public bool IsEmpty

@@ -132,12 +132,70 @@ namespace GrowingWithTheWeb.DataStructures {
             var node1 = heap.Insert(-6, 0);
             var node5 = heap.Insert(27, 0);
             Assert.Equal(heap.Size, 5);
-            Assert.Equal(heap.ExtractMinimum(), node1);
-            Assert.Equal(heap.ExtractMinimum(), node2);
-            Assert.Equal(heap.ExtractMinimum(), node3);
-            Assert.Equal(heap.ExtractMinimum(), node4);
-            Assert.Equal(heap.ExtractMinimum(), node5);
+            heap.Delete(node1);
+            Assert.Equal(heap.Size, 4);
+            heap.Delete(node4);
+            Assert.Equal(heap.Size, 3);
+            heap.Delete(node3);
+            Assert.Equal(heap.Size, 2);
+            heap.Delete(node5);
+            Assert.Equal(heap.Size, 1);
+            heap.Delete(node2);
             Assert.True(heap.IsEmpty);
+        }
+
+        [Fact]
+        public void DeleteNodeAtTopTest() {
+            var heap = _integerHeapConstructor();
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
+            var node2 = heap.Insert(2, 0);
+            var node1 = heap.Insert(1, 0);
+            var node5 = heap.Insert(5, 0);
+            Assert.Equal(heap.Size, 5);
+            heap.Delete(node1);
+            Assert.Equal(heap.Size, 4);
+        }
+
+        [Fact]
+        public void DeleteNodeAtBottomTest() {
+            var heap = _integerHeapConstructor();
+            var node3 = heap.Insert(3, 0);
+            var node4 = heap.Insert(4, 0);
+            var node2 = heap.Insert(2, 0);
+            var node1 = heap.Insert(1, 0);
+            var node5 = heap.Insert(5, 0);
+            Assert.Equal(heap.Size, 5);
+            heap.Delete(node5);
+            Assert.Equal(heap.Size, 4);
+        }
+
+        [Fact]
+        public void DeleteNodeFilterUpTest() {
+            // This set of inserts produces a BinaryHeap that will exercise the BinaryHeap.FilterUp
+            // method.
+            //
+            //        __1__                             __1__
+            //       /     \                           /     \
+            //      2      7                          2      7
+            //     / \    / \  -> Delete(9) ->       / \    / \
+            //    4   3  9   8                      4   3  5   8
+            //   / \                               /       ^
+            //  6   5                             6        5 filters up
+            //
+            var heap = _integerHeapConstructor();
+            var node1 = heap.Insert(1, 0);
+            var node2 = heap.Insert(2, 0);
+            var node7 = heap.Insert(7, 0);
+            var node4 = heap.Insert(4, 0);
+            var node3 = heap.Insert(3, 0);
+            var node9 = heap.Insert(9, 0);
+            var node8 = heap.Insert(8, 0);
+            var node6 = heap.Insert(6, 0);
+            var node5 = heap.Insert(5, 0);
+            Assert.Equal(heap.Size, 9);
+            heap.Delete(node9);
+            Assert.Equal(heap.Size, 8);
         }
 
         [Fact]
@@ -373,7 +431,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.Size, 5);
             Assert.Equal(other.Size, 5);
 
-            heap.Union((FibonacciHeap<int, int>)other);
+            heap.Union(other);
             Assert.Equal(heap.Size, 10);
             for (var i = 0; i < 10; i++) {
                 Assert.Equal(heap.ExtractMinimum().Key, i);
@@ -398,7 +456,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(heap.Size, 5);
             Assert.Equal(other.Size, 5);
 
-            heap.Union((FibonacciHeap<int, int>)other);
+            heap.Union(other);
             Assert.Equal(heap.Size, 10);
             for (var i = 0; i < 10; i++) {
                 Assert.Equal(heap.ExtractMinimum().Key, i);
@@ -422,7 +480,7 @@ namespace GrowingWithTheWeb.DataStructures {
             second.Insert(7, 0);
             second.Insert(0, 0);
             Assert.Equal(second.Size, 5);
-            first.Union((FibonacciHeap<int, int>)second);
+            first.Union(second);
             Assert.Equal(first.Size, 10);
             for (var i = 0; i < 10; i++) {
                 Assert.Equal(first.ExtractMinimum().Key, i);
@@ -448,7 +506,7 @@ namespace GrowingWithTheWeb.DataStructures {
             Assert.Equal(second.Size, 5);
             Assert.Equal(first.ExtractMinimum().Key, 1);
             Assert.Equal(second.ExtractMinimum().Key, 0);
-            first.Union((FibonacciHeap<int, int>)second);
+            first.Union(second);
             Assert.Equal(first.Size, 8);
             for (var i = 2; i < 10; i++) {
                 Assert.Equal(first.ExtractMinimum().Key, i);
