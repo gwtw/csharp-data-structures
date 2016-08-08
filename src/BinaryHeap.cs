@@ -16,7 +16,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <summary>
         /// The heap's data.
         /// </summary>
-        private IList<Node> list;
+        private List<Node> list;
 
         /// <summary>
         /// Creates a binary heap.
@@ -290,10 +290,9 @@ namespace GrowingWithTheWeb.DataStructures {
         /// <param name="other">The other heap.</param>
         public void Union(IPriorityQueue<TKey, TValue> other)
         {
-            while (!other.IsEmpty)
-            {
-                Insert((Node)other.ExtractMinimum());
-            }
+            var casted = (BinaryHeap<TKey, TValue>)other;
+            list.AddRange(casted.list);
+            BuildHeap();
         }
 
         /// <summary>
