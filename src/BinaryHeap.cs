@@ -130,7 +130,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// it's less than that node and recursing if so.
         /// </summary>
         /// <param name="i">The index to heapify.</param>
-        private void Heapify(int i) 
+        private void Heapify(int i)
         {
             int l = GetLeftIndex(i);
             int r = GetRightIndex(i);
@@ -228,7 +228,7 @@ namespace GrowingWithTheWeb.DataStructures {
             if (list[index].Key.CompareTo(newKey) < 0)
                 throw new ArgumentOutOfRangeException("New key is larger than old key.");
             list[index].Key = newKey;
-            FilterUp(index);
+            SiftDown(index);
         }
 
         /// <summary>
@@ -261,11 +261,11 @@ namespace GrowingWithTheWeb.DataStructures {
             var parentIndex = GetParentIndex(index);
             if (index != 0 && list[index].CompareTo(list[parentIndex]) < 0)
             {
-                FilterUp(index);
+                SiftDown(index);
             }
             else
             {
-                FilterDown(index);
+                Heapify(index);
             } 
         }
         
@@ -273,7 +273,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Recursively moves a node up the heap if it is less than its parent.
         /// </summary>
         /// <param name="index">The index of the node.</param>
-        private void FilterUp(int index)
+        private void SiftDown(int index)
         {
             var parentIndex = GetParentIndex(index);
             while (parentIndex != _invalidIndex && list[index].CompareTo(list[parentIndex]) < 0) 
@@ -281,27 +281,6 @@ namespace GrowingWithTheWeb.DataStructures {
                 Swap(index, parentIndex);
                 index = parentIndex;
                 parentIndex = GetParentIndex(index);
-            }
-        }
-        
-        /// <summary>
-        /// Recursively moves a node down the heap if it is less than one of its children.
-        /// </summary>
-        /// <param name="index">The index of the node.</param>
-        private void FilterDown(int index)
-        {
-            var leftIndex = GetLeftIndex(index);
-            var rightIndex = GetRightIndex(index);
-            while (leftIndex < list.Count && list[index].CompareTo(list[leftIndex]) > 0 ||
-                rightIndex < list.Count && list[index].CompareTo(list[rightIndex]) > 0) 
-            {
-                var minValueIndex = leftIndex;
-                if (list.Count != rightIndex && list[rightIndex].CompareTo(list[leftIndex]) < 0)
-                    minValueIndex = rightIndex;
-                Swap(index, minValueIndex);
-                index = minValueIndex;
-                leftIndex = GetLeftIndex(index);
-                rightIndex = GetRightIndex(index);
             }
         }
 
