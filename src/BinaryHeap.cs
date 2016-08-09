@@ -65,13 +65,7 @@ namespace GrowingWithTheWeb.DataStructures {
         {
             int i = list.Count;
             list.Add(node);
-            int parent = GetParentIndex(i);
-            while (parent != _invalidIndex && list[i].CompareTo(list[parent]) < 0) 
-            {
-                Swap(i, parent);
-                i = parent;
-                parent = GetParentIndex(i);
-            }
+            SiftUp(i);
             return node;
         } 
 
@@ -228,7 +222,7 @@ namespace GrowingWithTheWeb.DataStructures {
             if (list[index].Key.CompareTo(newKey) < 0)
                 throw new ArgumentOutOfRangeException("New key is larger than old key.");
             list[index].Key = newKey;
-            SiftDown(index);
+            SiftUp(index);
         }
 
         /// <summary>
@@ -261,7 +255,7 @@ namespace GrowingWithTheWeb.DataStructures {
             var parentIndex = GetParentIndex(index);
             if (index != 0 && list[index].CompareTo(list[parentIndex]) < 0)
             {
-                SiftDown(index);
+                SiftUp(index);
             }
             else
             {
@@ -273,7 +267,7 @@ namespace GrowingWithTheWeb.DataStructures {
         /// Recursively moves a node up the heap if it is less than its parent.
         /// </summary>
         /// <param name="index">The index of the node.</param>
-        private void SiftDown(int index)
+        private void SiftUp(int index)
         {
             var parentIndex = GetParentIndex(index);
             while (parentIndex != _invalidIndex && list[index].CompareTo(list[parentIndex]) < 0) 
